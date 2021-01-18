@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="asteroid"
+            type="com.udacity.asteroidradar.Asteroid" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/asteroidId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{asteroid.codename}"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text= "randomText" />
+
+        <TextView
+            android:id="@+id/asteroidDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{asteroid.closeApproachDate}"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/asteroidId"
+            app:layout_constraintTop_toBottomOf="@+id/asteroidId"
+            tools:text= "01-10-2021" />
+
+        <ImageView
+            android:id="@+id/asteroidIsDangerous"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="200dp"
+            app:statusIcon="@{asteroid.component8()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/asteroidDate"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/todo" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+
