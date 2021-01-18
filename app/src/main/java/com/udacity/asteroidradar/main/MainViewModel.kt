@@ -1,18 +1,24 @@
 package com.udacity.asteroidradar.main
 
 import android.app.Application
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.*
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
-import com.udacity.asteroidradar.api.AsteroidApiService
 import com.udacity.asteroidradar.database.getDatabase
+import com.udacity.asteroidradar.network.AsteroidNetwork
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 
 enum class AsteroidsApiStatus { LOADING, ERROR, DONE }
 enum class ApiFilter { TODAY, WEEK, SAVED }
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application), CoroutineScope by MainScope() {
 
     // The internal MutableLiveData String that stores the status of the most recent request
     private val _status = MutableLiveData<AsteroidsApiStatus>()
@@ -41,34 +47,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val database = getDatabase(application)
 
     val asteroidsList = ObservableArrayList<Asteroid>()
-    val api = AsteroidApiService.AsteroidApi
-
-
-//    init {
-//        viewModelScope.launch {
-//            _status.value = AsteroidsApiStatus.LOADING
-//            try {
-//
-//            }
-//
-//        }
-//    }
-
 
     fun displayPropertyDetails(asteroid: Asteroid) {
         _navigateToSelectedProperty.value = asteroid
     }
 
-    fun call() {
+    fun getFeed() {
+        launch(Dispatchers.Main) {
+            //_status.value = AsteroidsApiStatus.LOADING
+            try {
+                val response = AsteroidNetwork.serviceInstance.getFeeds(Constants.API_KEY,
+                        "2020-01-29", "2020-01-30")
+                if (response.isSuccessful && response.body() != null) {
+                    //TODO convert response.body into a JSONObject - convert a string to a JSONObject
+                        //val astroidListResponse = parseAsteroidsJsonResult(convertedStringIntoJSONObject)
+                    Log.d("bilbo", "astroidListResponse: ${response.body().orEmpty()}")
+                    // this forEach will add the items to the list
+                    //astroidListResponse.forEach { asteroid ->
+                    //    asteroidsList.add(asteroid)
+                    //}
 
-    }
+                } else {
+                    Log.d("bilbo", "Error: ${response.body()}")
+                }
+            } catch (e: Exception) {
+                Log.d("bilbo", "Exception: ${e.message}")
+            }
 
-
-    fun showList() {
-        asteroidsList.add(Asteroid(0L, "Bob", "2021-01-17", 2.2, 2.4,
-                2.6, 2.8, true))
-
-        asteroidsList.add(Asteroid(0L, "Bob", "2021-01-17", 2.2, 2.4,
-                2.6, 2.8, true))
+        }
     }
 }

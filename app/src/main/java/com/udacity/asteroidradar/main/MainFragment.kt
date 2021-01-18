@@ -1,11 +1,9 @@
 package com.udacity.asteroidradar.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.udacity.asteroidradar.R
@@ -35,12 +33,10 @@ class MainFragment : Fragment() {
         viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
             if( null != it ) {
                 this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
-        }
-
+            }
         })
 
         setHasOptionsMenu(true)
-
 
         return binding.root
     }
@@ -56,6 +52,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.showList()
+        viewModel.getFeed()
     }
 }

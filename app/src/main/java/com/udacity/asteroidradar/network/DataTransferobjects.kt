@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.api
+package com.udacity.asteroidradar.network
 
 import com.squareup.moshi.JsonClass
 import com.udacity.asteroidradar.Asteroid
@@ -44,17 +44,18 @@ fun NetworkAsteroidContainer.asDomainModel(): List<Asteroid> {
     }
 }
 
-//fun NetworksteroidsContainer.asDatabaseModel(): Array<DatabaseAsteroid> {
-//    return asteroids.map{
-//        DatabaseAsteroid(
-//        id = it.id,
-//        codename = it.codename,
-//        closeApproachDate = it.closeApproachDate,
-//        absoluteMagitude = it.absoluteMagitude,
-//        estimateDiamter = it.estimateDiameter,
-//        relativeVelocity = it.relativeVelocity,
-//        distanceFromEarth = it.distanceFromEarth,
-//        isPotentallyHazardous = it.isPotentallyHazardous
-//        )
-//    }.toTypeArray()*/
-//}
+/*
+fun NetworksteroidsContainer.asDatabaseModel(): Array<DatabaseAsteroid> {
+    return asteroids.map{
+        DatabaseAsteroid(
+                id = it.id,
+                codename = it.codename,
+                closeApproachDate = it.closeApproachDate,
+                absoluteMagitude = it.absoluteMagitude,
+                estimateDiamter = it.estimateDiameter,
+                relativeVelocity = it.relativeVelocity,
+                distanceFromEarth = it.distanceFromEarth,
+                isPotentallyHazardous = it.isPotentallyHazardous
+        )
+    }.toTypeArray()
+}*/
