@@ -59,6 +59,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), C
                 val response = AsteroidNetwork.serviceInstance.getFeeds(Constants.API_KEY,
                         "2020-01-29", "2020-01-30")
                 if (response.isSuccessful && response.body() != null) {
+                    // How to convert
                     //TODO convert response.body into a JSONObject - convert a string to a JSONObject
                         //val astroidListResponse = parseAsteroidsJsonResult(convertedStringIntoJSONObject)
                     Log.d("bilbo", "astroidListResponse: ${response.body().orEmpty()}")
