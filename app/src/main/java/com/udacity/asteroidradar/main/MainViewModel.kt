@@ -9,6 +9,8 @@ import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.network.AsteroidNetwork
+import com.udacity.asteroidradar.network.parseAsteroidsJsonResult
+import com.udacity.asteroidradar.network.parseStringToAsteroidList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -59,14 +61,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application), C
                 val response = AsteroidNetwork.serviceInstance.getFeeds(Constants.API_KEY,
                         "2020-01-29", "2020-01-30")
                 if (response.isSuccessful && response.body() != null) {
-                    // How to convert
-                    //TODO convert response.body into a JSONObject - convert a string to a JSONObject
-                        //val astroidListResponse = parseAsteroidsJsonResult(convertedStringIntoJSONObject)
-                    Log.d("bilbo", "astroidListResponse: ${response.body().orEmpty()}")
-                    // this forEach will add the items to the list
-                    //astroidListResponse.forEach { asteroid ->
-                    //    asteroidsList.add(asteroid)
-                    //}
+                   val asteroidListResponse = parseStringToAsteroidList(response.body()!!)
+                   // val asteroidListResponse = parseAsteroidsJsonResult(convertedStringIntoJSONObject)
+                    Log.d("bilbo", "asteroidListResponse: ${response.body().orEmpty()}")
+//                     this forEach will add the items to the list
+//                    asteroidListResponse.forEach { asteroid ->
+//                        asteroidsList.add(asteroid)
+//                    }
 
                 } else {
                     Log.d("bilbo", "Error: ${response.body()}")
