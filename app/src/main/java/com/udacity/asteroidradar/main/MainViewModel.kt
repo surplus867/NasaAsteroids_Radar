@@ -62,7 +62,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application), C
                         "2020-01-29", "2020-01-30")
                 if (response.isSuccessful && response.body() != null) {
                    val asteroidListResponse = parseStringToAsteroidList(response.body()!!)
-                   // val asteroidListResponse = parseAsteroidsJsonResult(convertedStringIntoJSONObject)
+                   //val asteroidListResponse = parseAsteroidsJsonResult(convertedStringIntoJSONObject)
                     Log.d("bilbo", "asteroidListResponse: ${response.body().orEmpty()}")
 //                     this forEach will add the items to the list
 //                    asteroidListResponse.forEach { asteroid ->
